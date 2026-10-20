@@ -176,8 +176,23 @@ void AP_Motors6DOF::setup_motors(motor_frame_class frame_class, motor_frame_type
         break;
 
     case SUB_FRAME_CUSTOM:
-        // Put your custom motor setup here
-        //break;
+        // Format: add_motor_raw_6dof(motor_num, roll, pitch, yaw, throttle, forward, lateral, test_order);
+        // --- Horizontal Thrusters ---
+        // Motor 1: Forward Left (Forward +, Yaw +)
+        add_motor_raw_6dof(AP_MOTORS_MOT_1,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f, 1);
+        // Motor 2: Forward Right (Forward +, Yaw -)
+        add_motor_raw_6dof(AP_MOTORS_MOT_2,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f, 2);
+        // Motor 3: Lateral Strafe (Lateral +)
+        add_motor_raw_6dof(AP_MOTORS_MOT_3,  0.0f,  0.0f,  0.0f,  0.0f,  0.0f,  1.0f, 3);
+
+        // --- Vertical Thrusters (120 deg Delta Layout) ---
+        // Motor 4: Rear-Right (Roll -, Pitch -0.5, Heave +)
+        add_motor_raw_6dof(AP_MOTORS_MOT_4, -0.866f, -0.5f, 0.0f,  1.0f,  0.0f,  0.0f, 4);
+        // Motor 5: Front-Center (Roll 0, Pitch +1.0, Heave +)
+        add_motor_raw_6dof(AP_MOTORS_MOT_5,  0.0f,    1.0f, 0.0f,  1.0f,  0.0f,  0.0f, 5);
+        // Motor 6: Rear-Left (Roll +, Pitch -0.5, Heave +)
+        add_motor_raw_6dof(AP_MOTORS_MOT_6,  0.866f, -0.5f, 0.0f,  1.0f,  0.0f,  0.0f, 6);
+        break;
 
     case SUB_FRAME_SIMPLEROV_3:
         _frame_class_string = "SIMPLEROV_3";
